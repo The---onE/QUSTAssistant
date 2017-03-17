@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xmx.qust">
+
+    <!-- LeanCloud权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!--高德地图权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--百度地图权限-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- 基础模块 END -->
+    <application
+        android:name="com.xmx.qust.core.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="4fd4aa40c7809a5a824bfe016e50e209" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="19ZDDxMbBCvnI1AHmIqGPuQIwipGHZ0n" />
+
+        <!-- 实时通信模块、推送（若使用该功能，需添加以下声明）START -->
+        <service android:name="com.avos.avoscloud.PushService" />
+
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote" />
+
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <!-- 实时通信模块、推送 END -->
+
+        <activity
+            android:name="com.xmx.qust.core.activity.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.xmx.qust.core.activity.SplashActivity"
+            android:theme="@style/AppTheme.SplashBackground">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- <activity -->
+        <!-- android:name=".User.LoginActivity" -->
+        <!-- android:launchMode="singleTask" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <activity
+            android:name="com.xmx.qust.common.user.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.xmx.qust.common.user.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.xmx.qust.module.log.OperationLogActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name="com.xmx.qust.module.map.amap.AMapActivity"></activity>
+        <activity android:name="com.xmx.qust.module.map.amap.AMapPOIActivity"></activity>
+        <activity android:name="com.xmx.qust.module.map.amap.AMapRouteActivity"></activity>
+        <activity android:name="com.xmx.qust.module.map.bmap.BMapActivity"></activity>
+        <activity android:name="com.xmx.qust.module.map.bmap.BMapPOIActivity"></activity>
+        <activity android:name="com.xmx.qust.module.map.bmap.BMapRouteActivity"></activity>
+
+        <activity android:name="com.xmx.qust.common.map.amap.route.WalkRouteDetailActivity"></activity>
+        <activity android:name="com.xmx.qust.common.map.amap.route.BusRouteDetailActivity"></activity>
+        <activity android:name="com.xmx.qust.common.map.bmap.route.WalkRouteDetailActivity"></activity>
+    </application>
+
+</manifest>

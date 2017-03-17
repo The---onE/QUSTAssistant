@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xmx.qust.core.fragment.HomeFragment">
+    <Button
+        android:id="@+id/btn_amap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="高德地图" />
+
+    <Button
+        android:id="@+id/btn_amap_poi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开POI地图" />
+
+    <Button
+        android:id="@+id/btn_amap_route"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="路线地图" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_bmap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="百度地图" />
+
+    <Button
+        android:id="@+id/btn_bmap_poi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开POI地图" />
+
+    <Button
+        android:id="@+id/btn_bmap_route"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="路线地图" />
+
+</LinearLayout>
