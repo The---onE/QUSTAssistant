@@ -1,6 +1,7 @@
 package com.xmx.qust.base.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -43,20 +44,30 @@ public abstract class BaseTempActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // 初始化工具栏
         // 布局中必须要有 <include layout="@layout/tool_bar" />
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setActionBar(getSupportActionBar(), toolbar);
+
+        mGestureDetector = new GestureDetector(this, new TempOnGestureListener());
+    }
+
+    /**
+     * 设置顶部工具栏
+     *
+     * @param actionBar 工具栏
+     * @param toolbar   工具栏控件
+     */
+    protected void setActionBar(ActionBar actionBar, Toolbar toolbar) {
         // 工具栏添加返回按钮
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        // 点击返回按钮相当于按返回键
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-
-        mGestureDetector = new GestureDetector(this, new TempOnGestureListener());
     }
 }

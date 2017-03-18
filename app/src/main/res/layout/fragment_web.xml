@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xmx.qust.core.fragment.WebFragment">
+
+    <Button
+        android:id="@+id/btnQUSTWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="青岛科技大学校园网认证" />
+
+    <Button
+        android:id="@+id/btnQUSTOfficial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="青岛科技大学官网" />
+
+    <Button
+        android:id="@+id/btnQUSTStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="青岛科技大学学生服务" />
+
+</LinearLayout>

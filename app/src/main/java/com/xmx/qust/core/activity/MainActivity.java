@@ -23,11 +23,11 @@ import com.xmx.qust.common.user.UserData;
 import com.xmx.qust.common.user.callback.LogoutCallback;
 import com.xmx.qust.core.Constants;
 import com.xmx.qust.core.fragment.HomeFragment;
-import com.xmx.qust.core.fragment.MapFragment;
 import com.xmx.qust.core.PagerAdapter;
 import com.xmx.qust.common.user.callback.AutoLoginCallback;
 import com.xmx.qust.common.user.UserConstants;
 import com.xmx.qust.common.user.UserManager;
+import com.xmx.qust.core.fragment.WebFragment;
 import com.xmx.qust.utils.ExceptionUtil;
 
 import java.util.ArrayList;
@@ -50,11 +50,12 @@ public class MainActivity extends BaseActivity
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
-        fragments.add(new MapFragment());
+        fragments.add(new WebFragment());
 
         List<String> titles = new ArrayList<>();
         titles.add("首页");
-        titles.add("地图");
+        titles.add("网络");
+
         // 分页Fragment适配器
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragments, titles);
 
