@@ -94,13 +94,7 @@
             android:name="com.xmx.qust.module.log.OperationLogActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.xmx.qust.module.web.QUSTWifiActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.xmx.qust.module.web.QUSTOfficialActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.xmx.qust.module.web.QUSTStudentActivity"
+            android:name="com.xmx.qust.module.web.WebPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name="com.xmx.qust.module.map.amap.AMapActivity"></activity>

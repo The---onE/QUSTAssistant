@@ -6,9 +6,7 @@ import android.view.View;
 
 import com.xmx.qust.R;
 import com.xmx.qust.base.fragment.xUtilsFragment;
-import com.xmx.qust.module.web.QUSTOfficialActivity;
-import com.xmx.qust.module.web.QUSTStudentActivity;
-import com.xmx.qust.module.web.QUSTWifiActivity;
+import com.xmx.qust.module.web.WebPageActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -20,17 +18,15 @@ import org.xutils.view.annotation.Event;
 public class WebFragment extends xUtilsFragment {
     @Event(value = R.id.btnQUSTWifi)
     private void onQUSTWifiClick(View view) {
-        startActivity(QUSTWifiActivity.class);
+        startActivity(WebPageActivity.class, "url", "http://172.16.10.3");
     }
-
     @Event(value = R.id.btnQUSTOfficial)
     private void onQUSTOfficialClick(View view) {
-        startActivity(QUSTOfficialActivity.class);
+        startActivity(WebPageActivity.class, "url", "http://m.qust.edu.cn/");
     }
-
     @Event(value = R.id.btnQUSTStudent)
     private void onQUSTStudentClick(View view) {
-        startActivity(QUSTStudentActivity.class);
+        startActivity(WebPageActivity.class, "url", "http://m.qust.edu.cn/index/ryfl/xs.htm");
     }
 
 

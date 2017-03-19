@@ -17,15 +17,12 @@ import com.xmx.qust.common.web.BaseWebViewClient;
 
 /**
  * Created by The_onE on 2017/2/17.
- * 打开QUST官网
+ * 打开QUST认证页
  */
-public class QUSTOfficialActivity extends BaseTempActivity {
-
-    WebView webBrowser;
-
+public class WebPageActivity extends BaseTempActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_qust_wifi);
+        setContentView(R.layout.activity_web_page);
     }
 
     @Override
@@ -35,7 +32,7 @@ public class QUSTOfficialActivity extends BaseTempActivity {
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        webBrowser = getViewById(R.id.webBrowser);
+        WebView webBrowser = getViewById(R.id.webBrowser);
 
         // 允许JS执行
         webBrowser.getSettings().setJavaScriptEnabled(true);
@@ -46,7 +43,7 @@ public class QUSTOfficialActivity extends BaseTempActivity {
         webBrowser.setWebChromeClient(new BaseWebChromeClient() {
             @Override
             public void onAlert(String message) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(QUSTOfficialActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(WebPageActivity.this);
                 builder.setMessage(message)
                         .setTitle("提示")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -60,7 +57,7 @@ public class QUSTOfficialActivity extends BaseTempActivity {
 
             @Override
             public void onConfirm(String message, final JsResult result) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(QUSTOfficialActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(WebPageActivity.this);
                 builder.setMessage(message)
                         .setTitle("提示")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -82,15 +79,17 @@ public class QUSTOfficialActivity extends BaseTempActivity {
         WebSettings settings = webBrowser.getSettings();
         // 设置可以支持缩放
         settings.setSupportZoom(true);
-        // 设置出现缩放工具
         settings.setBuiltInZoomControls(true);
+        //不显示缩放按钮
+        settings.setDisplayZoomControls(false);
         //设置可在大视野范围内上下左右拖动，并且可以任意比例缩放
         settings.setUseWideViewPort(true);
         //设置默认加载的可视范围是大视野范围
         settings.setLoadWithOverviewMode(true);
 
+        String url = getIntent().getStringExtra("url");
         // 打开网络网页
-        webBrowser.loadUrl("http://m.qust.edu.cn/");
+        webBrowser.loadUrl(url);
     }
 
     @Override
@@ -103,15 +102,5 @@ public class QUSTOfficialActivity extends BaseTempActivity {
                 finish();
             }
         });
-    }
-
-    // 重写返回键事件，后退到上一个网页
-    @Override
-    public void onBackPressed() {
-        if (webBrowser.canGoBack()) {
-            webBrowser.goBack();
-        } else {
-            super.onBackPressed();
-        }
     }
 }
