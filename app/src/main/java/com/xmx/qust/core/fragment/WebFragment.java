@@ -6,12 +6,6 @@ import android.view.View;
 
 import com.xmx.qust.R;
 import com.xmx.qust.base.fragment.xUtilsFragment;
-import com.xmx.qust.module.map.amap.AMapActivity;
-import com.xmx.qust.module.map.amap.AMapPOIActivity;
-import com.xmx.qust.module.map.amap.AMapRouteActivity;
-import com.xmx.qust.module.map.bmap.BMapActivity;
-import com.xmx.qust.module.map.bmap.BMapPOIActivity;
-import com.xmx.qust.module.map.bmap.BMapRouteActivity;
 import com.xmx.qust.module.web.QUSTOfficialActivity;
 import com.xmx.qust.module.web.QUSTStudentActivity;
 import com.xmx.qust.module.web.QUSTWifiActivity;
