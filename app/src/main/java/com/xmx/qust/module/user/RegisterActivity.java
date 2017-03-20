@@ -1,6 +1,8 @@
-package com.xmx.qust.common.user;
+package com.xmx.qust.module.user;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,6 +10,9 @@ import android.widget.EditText;
 import com.avos.avoscloud.AVException;
 import com.xmx.qust.R;
 import com.xmx.qust.base.activity.BaseTempActivity;
+import com.xmx.qust.common.user.UserConstants;
+import com.xmx.qust.common.user.UserData;
+import com.xmx.qust.common.user.UserManager;
 import com.xmx.qust.common.user.callback.RegisterCallback;
 import com.xmx.qust.utils.ExceptionUtil;
 
@@ -68,7 +73,7 @@ public class RegisterActivity extends BaseTempActivity {
                     @Override
                     public void error(int error) {
                         switch (error) {
-                            case UserConstants.USERNAME_ERROR:
+                            case UserConstants.USERNAME_EXIST:
                                 showToast(R.string.username_exist);
                                 register.setEnabled(true);
                                 break;
@@ -93,5 +98,11 @@ public class RegisterActivity extends BaseTempActivity {
     @Override
     protected void processLogic(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    protected void setActionBar(ActionBar actionBar, Toolbar toolbar) {
+        super.setActionBar(actionBar, toolbar);
+        actionBar.setTitle(R.string.register);
     }
 }

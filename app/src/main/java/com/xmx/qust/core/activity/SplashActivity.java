@@ -3,9 +3,14 @@ package com.xmx.qust.core.activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.avos.avoscloud.AVException;
+import com.xmx.qust.common.user.UserData;
+import com.xmx.qust.common.user.UserManager;
+import com.xmx.qust.common.user.callback.AutoLoginCallback;
 import com.xmx.qust.core.Constants;
 import com.xmx.qust.R;
 import com.xmx.qust.base.activity.BaseSplashActivity;
+import com.xmx.qust.utils.ExceptionUtil;
 import com.xmx.qust.utils.Timer;
 
 public class SplashActivity extends BaseSplashActivity {
@@ -33,10 +38,23 @@ public class SplashActivity extends BaseSplashActivity {
         timer = new Timer() {
             @Override
             public void timer() {
-
                 startMainActivity();
             }
         };
         timer.start(Constants.SPLASH_TIME, true);
+        UserManager.getInstance().autoLogin(new AutoLoginCallback() {
+            @Override
+            public void success(UserData user) {
+            }
+
+            @Override
+            public void error(int error) {
+            }
+
+            @Override
+            public void error(AVException e) {
+                ExceptionUtil.normalException(e, getBaseContext());
+            }
+        });
     }
 }

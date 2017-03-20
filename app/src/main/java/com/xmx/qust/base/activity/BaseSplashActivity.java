@@ -2,7 +2,7 @@ package com.xmx.qust.base.activity;
 
 import android.content.Intent;
 
-import com.xmx.qust.common.user.LoginActivity;
+import com.xmx.qust.module.user.LoginActivity;
 import com.xmx.qust.core.activity.MainActivity;
 
 /**

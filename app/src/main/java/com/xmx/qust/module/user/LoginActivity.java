@@ -1,21 +1,25 @@
-package com.xmx.qust.common.user;
+package com.xmx.qust.module.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVException;
 import com.xmx.qust.R;
-import com.xmx.qust.base.activity.BaseActivity;
+import com.xmx.qust.base.activity.BaseTempActivity;
+import com.xmx.qust.common.user.UserConstants;
+import com.xmx.qust.common.user.UserData;
+import com.xmx.qust.common.user.UserManager;
 import com.xmx.qust.common.user.callback.LoginCallback;
 import com.xmx.qust.core.Constants;
 import com.xmx.qust.core.activity.MainActivity;
 import com.xmx.qust.utils.ExceptionUtil;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseTempActivity {
     private long mExitTime = 0;
     public boolean mustFlag = false;
 
@@ -30,7 +34,7 @@ public class LoginActivity extends BaseActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AutoCompleteTextView usernameView = getViewById(R.id.tv_username);
+                EditText usernameView = getViewById(R.id.tv_username);
                 String username = usernameView.getText().toString();
                 EditText passwordView = getViewById(R.id.tv_password);
                 String password = passwordView.getText().toString();
@@ -90,6 +94,12 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void processLogic(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    protected void setActionBar(ActionBar actionBar, Toolbar toolbar) {
+        super.setActionBar(actionBar, toolbar);
+        actionBar.setTitle(R.string.login);
     }
 
     @Override

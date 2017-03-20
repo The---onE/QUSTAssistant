@@ -20,6 +20,8 @@ import com.xmx.qust.common.web.BaseWebViewClient;
  * 打开QUST认证页
  */
 public class WebPageActivity extends BaseTempActivity {
+    WebView webBrowser;
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_web_page);
@@ -32,7 +34,7 @@ public class WebPageActivity extends BaseTempActivity {
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        WebView webBrowser = getViewById(R.id.webBrowser);
+        webBrowser = getViewById(R.id.webBrowser);
 
         // 允许JS执行
         webBrowser.getSettings().setJavaScriptEnabled(true);
@@ -102,5 +104,15 @@ public class WebPageActivity extends BaseTempActivity {
                 finish();
             }
         });
+    }
+
+    // 重写返回键事件，后退到上一个网页
+    @Override
+    public void onBackPressed() {
+        if (webBrowser.canGoBack()) {
+            webBrowser.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

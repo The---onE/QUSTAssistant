@@ -85,10 +85,10 @@
         <!-- android:launchMode="singleTask" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
-            android:name="com.xmx.qust.common.user.LoginActivity"
+            android:name="com.xmx.qust.module.user.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.xmx.qust.common.user.RegisterActivity"
+            android:name="com.xmx.qust.module.user.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.xmx.qust.module.log.OperationLogActivity"

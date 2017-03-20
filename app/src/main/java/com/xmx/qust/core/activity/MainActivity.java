@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import com.avos.avoscloud.AVException;
 import com.xmx.qust.R;
 import com.xmx.qust.base.activity.BaseActivity;
-import com.xmx.qust.common.user.LoginActivity;
+import com.xmx.qust.module.user.LoginActivity;
 import com.xmx.qust.common.user.UserData;
 import com.xmx.qust.common.user.callback.LogoutCallback;
 import com.xmx.qust.core.Constants;
@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity
         Menu menu = navigation.getMenu();
         login = menu.findItem(R.id.nav_logout);
         // 使用设备保存的数据自动登录
-        UserManager.getInstance().autoLogin(new AutoLoginCallback() {
+        UserManager.getInstance().checkLogin(new AutoLoginCallback() {
             @Override
             public void success(final UserData user) {
                 login.setTitle(user.nickname + " 点击注销");
@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void error(int error) {
                 switch (error) {
+                    case UserConstants.CANNOT_CHECK_LOGIN:
                     case UserConstants.NOT_LOGGED_IN:
                         showToast("请在侧边栏中选择登录");
                         break;
