@@ -60,6 +60,7 @@ public class RegisterActivity extends BaseTempActivity {
                     @Override
                     public void success(UserData user) {
                         showToast(R.string.register_success);
+                        setResult(RESULT_OK);
                         finish();
                     }
 

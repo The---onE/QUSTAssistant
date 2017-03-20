@@ -6,12 +6,8 @@ package com.xmx.qust.core;
 public class Constants {
     public static final boolean EXCEPTION_DEBUG = true;
 
-    public static final String APP_ID = "wJMjIRbGcFS3FAxl2TutNTNE-gzGzoHsz  ";
-    public static final String APP_KEY = "cX2KTzLuyKPvss5xQxv6xsWO";
-
-    public static final String USER_INFO_TABLE = "UserInfo";
-    public static final String USER_DATA_TABLE = "UserData";
-    public static final String LOGIN_LOG_TABLE = "LoginLog";
+    public static final String APP_ID = "23M318gTD7u13HQhKHrCWAHK-gzGzoHsz";
+    public static final String APP_KEY = "nsvMU8O0rL7IojsV7aL5RMxj";
 
     public static final String FILE_DIR = "/MapFramework";
     public static final String DATABASE_DIR = FILE_DIR + "/Database";
@@ -20,10 +16,6 @@ public class Constants {
     public static final long LONGEST_EXIT_TIME = 2000;
     public static final long SPLASH_TIME = 2000;
     public static final long LONGEST_SPLASH_TIME = 6000;
-
-    public static final int CHOOSE_ALBUM = 1;
-    public static final int CHOOSE_PHOTO = 2;
-    public static final int TAKE_PHOTO = 3;
 
     public static final long DAY_TIME = 60 * 60 * 24 * 1000;
     public static final long HOUR_TIME = 60 * 60 * 1000;

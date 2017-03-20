@@ -1,5 +1,6 @@
 package com.xmx.qust.module.user;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -86,7 +87,8 @@ public class LoginActivity extends BaseTempActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(RegisterActivity.class);
+                startActivityForResult(new Intent(LoginActivity.this, RegisterActivity.class),
+                        UserConstants.REGISTER_REQUEST_CODE);
             }
         });
     }
@@ -94,6 +96,18 @@ public class LoginActivity extends BaseTempActivity {
     @Override
     protected void processLogic(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 若从注册页注册成功返回
+        if (requestCode == UserConstants.REGISTER_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
     }
 
     @Override

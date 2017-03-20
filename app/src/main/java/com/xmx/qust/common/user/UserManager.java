@@ -128,7 +128,7 @@ public class UserManager {
      * @return 是否已登录
      */
     public boolean isLoggedIn() {
-        return mSP.getBoolean("loggedin", false);
+        return loginFlag;
     }
 
     /**
