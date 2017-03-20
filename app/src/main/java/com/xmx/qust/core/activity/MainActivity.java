@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity
         fragments.add(new WebFragment());
 
         List<String> titles = new ArrayList<>();
-        titles.add("首页");
+        titles.add("杂务");
         titles.add("网络");
 
         // 分页Fragment适配器
@@ -183,10 +183,14 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_home:
+            case R.id.nav_odd:
                 vp.setCurrentItem(0);
                 break;
+            case R.id.nav_web:
+                vp.setCurrentItem(1);
+                break;
             case R.id.nav_setting: // 设置
+                // TODO
                 break;
             case R.id.nav_logout: // 登录/注销
                 final Intent intent = new Intent(this, LoginActivity.class);

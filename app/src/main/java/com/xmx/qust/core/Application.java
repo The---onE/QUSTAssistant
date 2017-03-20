@@ -4,7 +4,6 @@ import android.app.Activity;
 
 import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVOSCloud;
-import com.baidu.mapapi.SDKInitializer;
 import com.xmx.qust.BuildConfig;
 import com.xmx.qust.common.data.DataManager;
 import com.xmx.qust.common.map.amap.poi.POIManager;
@@ -21,6 +20,7 @@ import java.util.List;
 public class Application extends android.app.Application {
 
     private static Application instance;
+
     public static Application getInstance() {
         return instance;
     }
@@ -50,13 +50,10 @@ public class Application extends android.app.Application {
 
         AVOSCloud.initialize(this, Constants.APP_ID, Constants.APP_KEY);
 
-        if (Constants.EXCEPTION_DEBUG) {
-            CrashHandler crashHandler = CrashHandler.getInstance();
-            crashHandler.init(this);
-        }
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
 
         AVInstallation.getCurrentInstallation().saveInBackground();
-        SDKInitializer.initialize(this);
 
         UserManager.getInstance().setContext(this);
 

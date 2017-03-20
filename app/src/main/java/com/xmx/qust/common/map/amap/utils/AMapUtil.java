@@ -84,7 +84,7 @@ public class AMapUtil {
 //        }
 //
 //        return dis + ChString.Meter;
-        return lenMeter + com.xmx.qust.common.map.bmap.utils.ChString.Meter;
+        return lenMeter + ChString.Meter;
     }
 
     public static boolean IsEmptyOrNullString(String s) {
