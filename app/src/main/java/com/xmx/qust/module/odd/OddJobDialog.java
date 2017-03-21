@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.amap.api.maps.model.LatLng;
 import com.avos.avoscloud.AVException;
 import com.xmx.qust.R;
 import com.xmx.qust.common.data.callback.InsertCallback;
@@ -20,8 +18,9 @@ import com.xmx.qust.common.map.amap.utils.ToastUtil;
 import com.xmx.qust.common.user.UserData;
 import com.xmx.qust.utils.ExceptionUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by The_onE on 2017/2/28.
@@ -34,10 +33,14 @@ public class OddJobDialog extends DialogFragment {
     String mEnd;
     String mContent;
     int mType;
+    String mUserId;
+    String mNickname;
 
-    public void initCreateDialog(Context context, int type) {
+    public void initCreateDialog(Context context, int type, String userId, String nickname) {
         mContext = context;
         mType = type;
+        mUserId = userId;
+        mNickname = nickname;
     }
 
     @Nullable
@@ -80,6 +83,8 @@ public class OddJobDialog extends DialogFragment {
                 job.mStatus = 1;
                 job.mType = mType;
                 job.mTime = new Date();
+                job.mRequesterId = mUserId;
+                job.mRequesterName = mNickname;
 
                 // 添加杂务
                 OddJobEntityManager.getInstance().insertToCloud(job, new InsertCallback() {
@@ -88,7 +93,7 @@ public class OddJobDialog extends DialogFragment {
                         // 添加成功
                         ToastUtil.show(mContext, "添加成功");
                         job.mCloudId = objectId;
-                        // TODO mCallback.onSuccess(line);
+                        EventBus.getDefault().post(new ChangeListEvent());
                         dismiss();
                     }
 

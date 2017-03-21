@@ -123,6 +123,15 @@ public class UserManager {
     }
 
     /**
+     * 判断是否登录成功过
+     *
+     * @return 是否登录成功过
+     */
+    public boolean checkLoggedIn() {
+        return mSP.getBoolean("loggedin", false);
+    }
+
+    /**
      * 判断是否已登录
      *
      * @return 是否已登录
@@ -445,7 +454,7 @@ public class UserManager {
      */
     public void autoLogin(final AutoLoginCallback loginCallback) {
         final String username = getUsername();
-        if (!isLoggedIn() || username.equals("")) {
+        if (!checkLoggedIn() || username.equals("")) {
             loginCallback.error(UserConstants.NOT_LOGGED_IN);
             return;
         }
