@@ -2,6 +2,7 @@ package com.xmx.qust.core;
 
 import android.content.Context;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.xmx.qust.common.log.OperationLogEntityManager;
@@ -53,7 +54,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             return false;
         }
 
-        ex.printStackTrace();
+        Log.e("Error", Log.getStackTraceString(ex));
         OperationLogEntityManager.getInstance().addLog("" + ex);
 
         new Thread() {

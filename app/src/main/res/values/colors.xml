@@ -6,16 +6,16 @@
 
     <color name="colorPrimaryDarkTrans">#CCf57257</color>
 
-    <color name="grey"> #ebebeb</color>
-    <color name="black"> #000000</color>
-    <color name="darkgrey"> #C0C0C0</color>
-    <color name="white"> #FFFFFF</color>
-    <color name="red"> #FF0000</color>
+    <color name="grey">#ebebeb</color>
+    <color name="black">#000000</color>
+    <color name="darkgrey">#C0C0C0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
     <color name="f850_default_blue">#0079ff</color>
 
     <drawable name="transparent">#00000000</drawable>
     <color name="transparent">#00000000</color>
-    
+
 
     <color name="header_toast_bg">#ccebfc</color>
     <color name="header_toast">#024ca1</color>
@@ -32,4 +32,6 @@
     <color name="act_background">#efefef</color>
     <color name="phone_bg">#f6f6f6</color>
     <color name="translucent">#66000000</color>
+
+    <color name="activity_bg">#ddffdd</color>
 </resources>

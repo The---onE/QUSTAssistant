@@ -53,6 +53,7 @@
             android:name="com.xmx.qust.core.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.xmx.qust.core.activity.SplashActivity"
@@ -78,6 +79,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.xmx.qust.module.web.WebPageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.xmx.qust.module.odd.OddJobListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.xmx.qust.module.odd.MapActivity"

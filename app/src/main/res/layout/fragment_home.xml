@@ -4,8 +4,108 @@
     android:layout_height="match_parent"
     tools:context="com.xmx.qust.core.fragment.HomeFragment">
 
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnMeal"
+        android:layout_width="260dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="带饭"
+            android:textColor="@color/white" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnPackage"
+        android:layout_width="260dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/btnMeal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="取快递"
+            android:textColor="@color/white" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnOddJob"
+        android:layout_width="260dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/btnPackage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="杂务"
+            android:textColor="@color/white" />
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/btnMap"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:text="我发起的" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:text="我接受的" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
     <Button
-        android:id="@+id/btn_map"
+        android:id="@+id/btnMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

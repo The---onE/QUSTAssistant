@@ -229,6 +229,7 @@ public abstract class BaseCloudEntityManager<Entity extends ICloudEntity> {
             public void error(int error) {
                 switch (error) {
                     case UserConstants.NOT_LOGGED_IN:
+                    case UserConstants.CANNOT_CHECK_LOGIN:
                         callback.syncError(DataConstants.NOT_LOGGED_IN);
                         break;
                     case UserConstants.USERNAME_ERROR:
