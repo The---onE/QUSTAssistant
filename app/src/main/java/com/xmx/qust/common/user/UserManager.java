@@ -174,6 +174,8 @@ public class UserManager {
      * @param callback 自定义处理
      */
     public void logoutProc(UserData user, LogoutCallback callback) {
+        loginFlag = false;
+
         SharedPreferences.Editor editor = mSP.edit();
         editor.putBoolean("loggedin", false);
         editor.putString("username", "");

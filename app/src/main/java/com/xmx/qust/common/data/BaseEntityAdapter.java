@@ -29,7 +29,7 @@ public abstract class BaseEntityAdapter<Entity> extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Entity getItem(int i) {
         if (i < mData.size()) {
             return mData.get(i);
         } else {

@@ -1,7 +1,10 @@
 package com.xmx.qust.module.odd;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.avos.avoscloud.AVException;
@@ -64,7 +67,11 @@ public class OddJobListActivity extends BaseTempActivity {
                 mUserId = user.objectId;
                 mAdapter = new OddJobAdapter(getBaseContext(), new ArrayList<OddJob>(), mUserId);
                 mOddJobList.setAdapter(mAdapter);
-                OddJobEntityManager.getInstance().selectAllByType(mType, mUserId, callback);
+                if (mMustLogin) {
+                    OddJobEntityManager.getInstance().selectAllByType(mType, mUserId, callback);
+                } else {
+                    OddJobEntityManager.getInstance().selectAllByType(mType, null, callback);
+                }
             }
 
             @Override
@@ -112,6 +119,58 @@ public class OddJobListActivity extends BaseTempActivity {
                         ExceptionUtil.normalException(e, getBaseContext());
                     }
                 });
+            }
+        });
+
+        mOddJobList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!UserManager.getInstance().checkLoggedIn()) {
+                    showToast("请先登录");
+                    return true;
+                }
+                OddJob job = mAdapter.getItem(i);
+                String requester = job.mRequesterId;
+                showToast(requester);
+                showToast(mUserId);
+                if (requester.equals(mUserId)) {
+                    AlertDialog.Builder builder = new AlertDialog
+                            .Builder(OddJobListActivity.this);
+                    builder.setMessage("要删除该请求吗？")
+                            .setTitle("提示")
+                            .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // TODO 删除
+                                }
+                            })
+                            .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog
+                            .Builder(OddJobListActivity.this);
+                    builder.setMessage("要接受该请求吗？")
+                            .setTitle("提示")
+                            .setPositiveButton("接受", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // TODO 接受
+                                }
+                            })
+                            .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .show();
+                }
+                return true;
             }
         });
     }

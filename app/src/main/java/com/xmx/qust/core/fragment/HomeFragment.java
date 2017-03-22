@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.xmx.qust.R;
 import com.xmx.qust.base.fragment.xUtilsFragment;
+import com.xmx.qust.common.user.UserManager;
 import com.xmx.qust.module.odd.MapActivity;
 import com.xmx.qust.module.odd.OddJobListActivity;
 
@@ -25,6 +26,46 @@ public class HomeFragment extends xUtilsFragment {
         i.putExtra("type", 1);
         i.putExtra("must-login", false);
         startActivity(i);
+    }
+
+    @Event(R.id.btnPackage)
+    private void onPackageClick(View view) {
+        Intent i = new Intent(getContext(), OddJobListActivity.class);
+        i.putExtra("type", 2);
+        i.putExtra("must-login", false);
+        startActivity(i);
+    }
+
+    @Event(R.id.btnOddJob)
+    private void onOddJobClick(View view) {
+        Intent i = new Intent(getContext(), OddJobListActivity.class);
+        i.putExtra("type", 3);
+        i.putExtra("must-login", false);
+        startActivity(i);
+    }
+
+    @Event(R.id.btnRequester)
+    private void onRequesterClick(View view) {
+        if (UserManager.getInstance().checkLoggedIn()) {
+            Intent i = new Intent(getContext(), OddJobListActivity.class);
+            i.putExtra("type", -1);
+            i.putExtra("must-login", true);
+            startActivity(i);
+        } else {
+            showToast("请先登录");
+        }
+    }
+
+    @Event(R.id.btnRespondent)
+    private void onRespondentClick(View view) {
+        if (UserManager.getInstance().checkLoggedIn()) {
+            Intent i = new Intent(getContext(), OddJobListActivity.class);
+            i.putExtra("type", -2);
+            i.putExtra("must-login", true);
+            startActivity(i);
+        } else {
+            showToast("请先登录");
+        }
     }
 
     @Event(R.id.btnMap)
