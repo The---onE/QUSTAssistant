@@ -24,7 +24,7 @@ public class OddJob implements ICloudEntity {
     public double mStartLongitude = -1000; // 起点经度
     public double mEndLatitude = -1000; // 终点纬度
     public double mEndLongitude = -1000; // 终点经度
-    public int mStatus; // 状态，1为可用，0为已接受，负数为冲突，65535为已完成
+    public int mStatus; // 状态，1为可用，0为已接受，负数为冲突，65535为已完成，-65535为删除
     public int mType; // 类型
     public Date mTime; // 时间
 

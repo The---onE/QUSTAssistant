@@ -11,6 +11,7 @@ import com.avos.avoscloud.AVException;
 import com.xmx.qust.R;
 import com.xmx.qust.base.activity.BaseTempActivity;
 import com.xmx.qust.common.data.callback.SelectCallback;
+import com.xmx.qust.common.data.callback.UpdateCallback;
 import com.xmx.qust.common.user.UserData;
 import com.xmx.qust.common.user.UserManager;
 import com.xmx.qust.common.user.callback.AutoLoginCallback;
@@ -20,7 +21,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OddJobListActivity extends BaseTempActivity {
 
@@ -129,10 +132,8 @@ public class OddJobListActivity extends BaseTempActivity {
                     showToast("请先登录");
                     return true;
                 }
-                OddJob job = mAdapter.getItem(i);
+                final OddJob job = mAdapter.getItem(i);
                 String requester = job.mRequesterId;
-                showToast(requester);
-                showToast(mUserId);
                 if (requester.equals(mUserId)) {
                     AlertDialog.Builder builder = new AlertDialog
                             .Builder(OddJobListActivity.this);
@@ -141,7 +142,29 @@ public class OddJobListActivity extends BaseTempActivity {
                             .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    // TODO 删除
+                                    Map<String, Object> update = new HashMap<>();
+                                    update.put("status", OddJobConstants.STATUS_DELETED);
+                                    OddJobEntityManager.getInstance().updateToCloud(
+                                            job.mCloudId, update, new UpdateCallback() {
+                                                @Override
+                                                public void success(UserData user) {
+                                                    // 添加成功
+                                                    showToast("删除成功");
+                                                    EventBus.getDefault().post(new ChangeListEvent());
+                                                }
+
+                                                @Override
+                                                public void syncError(int error) {
+                                                    OddJobEntityManager.defaultError(error, getBaseContext());
+                                                }
+
+                                                @Override
+                                                public void syncError(AVException e) {
+                                                    showToast("删除失败");
+                                                    ExceptionUtil.normalException(e, getBaseContext());
+                                                }
+                                            }
+                                    );
                                 }
                             })
                             .setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -185,9 +208,6 @@ public class OddJobListActivity extends BaseTempActivity {
         UserManager.getInstance().checkLogin(new AutoLoginCallback() {
             @Override
             public void success(UserData user) {
-                mUserId = user.objectId;
-                mAdapter = new OddJobAdapter(getBaseContext(), new ArrayList<OddJob>(), mUserId);
-                mOddJobList.setAdapter(mAdapter);
                 OddJobEntityManager.getInstance().selectAllByType(mType, mUserId, callback);
             }
 
@@ -196,8 +216,6 @@ public class OddJobListActivity extends BaseTempActivity {
                 if (mMustLogin) {
                     finish();
                 } else {
-                    mAdapter = new OddJobAdapter(getBaseContext(), new ArrayList<OddJob>(), null);
-                    mOddJobList.setAdapter(mAdapter);
                     OddJobEntityManager.getInstance().selectAllByType(mType, null, callback);
                 }
             }

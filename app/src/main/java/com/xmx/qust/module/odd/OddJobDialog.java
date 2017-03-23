@@ -80,7 +80,7 @@ public class OddJobDialog extends DialogFragment {
                 job.mContent = content;
                 job.mStart = start;
                 job.mEnd = end;
-                job.mStatus = 1;
+                job.mStatus = OddJobConstants.STATUS_ABLE;
                 job.mType = mType;
                 job.mTime = new Date();
                 job.mRequesterId = mUserId;

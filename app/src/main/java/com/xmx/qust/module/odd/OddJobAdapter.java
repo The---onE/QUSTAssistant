@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xmx.qust.R;
@@ -24,6 +25,8 @@ public class OddJobAdapter extends BaseEntityAdapter<OddJob> {
     private String mUserId;
 
     static class ViewHolder {
+        @ViewInject(R.id.layoutItem)
+        LinearLayout layout;
         @ViewInject(R.id.tvTitle)
         TextView titleView;
         @ViewInject(R.id.tvStart)
@@ -55,6 +58,17 @@ public class OddJobAdapter extends BaseEntityAdapter<OddJob> {
 
         if (position < mData.size()) {
             OddJob job = mData.get(position);
+
+            int status = job.mStatus;
+            switch (status) {
+//                case OddJobConstants.STATUS_DELETED:
+//                    holder.layout.setVisibility(View.GONE);
+//                    break;
+//                default:
+//                    holder.layout.setVisibility(View.VISIBLE);
+//                    break;
+            }
+
             holder.titleView.setText(job.mTitle);
             holder.startView.setText("起点:" + job.mStart);
             holder.endView.setText("终点:" + job.mEnd);

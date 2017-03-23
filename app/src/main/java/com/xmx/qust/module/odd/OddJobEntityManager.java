@@ -1,9 +1,16 @@
 package com.xmx.qust.module.odd;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
+import com.xmx.qust.common.data.DataConstants;
 import com.xmx.qust.common.data.callback.SelectCallback;
 import com.xmx.qust.common.data.cloud.BaseCloudEntityManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,8 +33,8 @@ public class OddJobEntityManager extends BaseCloudEntityManager<OddJob> {
         userField = "User";
     }
 
-    // 查找，type 【-1:id为发起人 -2:id为接受人 正数:按类型查找,id为空】
-    public void selectAllByType(int type, String id, SelectCallback<OddJob> callback) {
+    // 查找所有未删除记录，type 【-1:id为发起人 -2:id为接受人 正数:按类型查找,id为空】
+    public void selectAllByType(int type, String id, final SelectCallback<OddJob> callback) {
         Map<String, Object> con = new HashMap<>();
         switch (type) {
             case -1:
@@ -40,6 +47,31 @@ public class OddJobEntityManager extends BaseCloudEntityManager<OddJob> {
                 con.put("type", type);
                 break;
         }
-        selectByCondition(con, "time", false, callback);
+
+        if (!checkDatabase()) {
+            callback.syncError(DataConstants.NOT_INIT);
+            return;
+        }
+        AVQuery<AVObject> query = new AVQuery<>(tableName);
+        for (String key : con.keySet()) {
+            query.whereEqualTo(key, con.get(key));
+        }
+        query.whereNotEqualTo("status", OddJobConstants.STATUS_DELETED);
+        query.orderByDescending("time");
+        query.findInBackground(new FindCallback<AVObject>() {
+            public void done(List<AVObject> avObjects, AVException e) {
+                if (e == null) {
+                    List<OddJob> entities = new ArrayList<>();
+                    for (AVObject object : avObjects) {
+                        OddJob entity = entityTemplate.convertToEntity(object);
+                        entities.add(entity);
+                    }
+                    callback.success(entities);
+                } else {
+                    callback.syncError(e);
+                }
+            }
+        });
+
     }
 }
