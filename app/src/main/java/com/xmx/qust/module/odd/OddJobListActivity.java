@@ -28,6 +28,7 @@ import java.util.Map;
 public class OddJobListActivity extends BaseTempActivity {
 
     private String mUserId;
+    private String mNickname;
     private int mType;
     private boolean mMustLogin;
     private ListView mOddJobList;
@@ -68,6 +69,7 @@ public class OddJobListActivity extends BaseTempActivity {
             @Override
             public void success(UserData user) {
                 mUserId = user.objectId;
+                mNickname = user.nickname;
                 mAdapter = new OddJobAdapter(getBaseContext(), new ArrayList<OddJob>(), mUserId);
                 mOddJobList.setAdapter(mAdapter);
                 if (mMustLogin) {
@@ -148,7 +150,7 @@ public class OddJobListActivity extends BaseTempActivity {
                                             job.mCloudId, update, new UpdateCallback() {
                                                 @Override
                                                 public void success(UserData user) {
-                                                    // 添加成功
+                                                    // 删除成功
                                                     showToast("删除成功");
                                                     EventBus.getDefault().post(new ChangeListEvent());
                                                 }
@@ -182,7 +184,31 @@ public class OddJobListActivity extends BaseTempActivity {
                             .setPositiveButton("接受", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    // TODO 接受
+                                    Map<String, Object> update = new HashMap<>();
+                                    update.put("respondent", mUserId);
+                                    update.put("respondentName", mNickname);
+                                    update.put("status", OddJobConstants.STATUS_RUNNING);
+                                    OddJobEntityManager.getInstance().updateToCloud(
+                                            job.mCloudId, update, new UpdateCallback() {
+                                                @Override
+                                                public void success(UserData user) {
+                                                    // 接受成功
+                                                    showToast("接受成功");
+                                                    EventBus.getDefault().post(new ChangeListEvent());
+                                                }
+
+                                                @Override
+                                                public void syncError(int error) {
+                                                    OddJobEntityManager.defaultError(error, getBaseContext());
+                                                }
+
+                                                @Override
+                                                public void syncError(AVException e) {
+                                                    showToast("接受失败");
+                                                    ExceptionUtil.normalException(e, getBaseContext());
+                                                }
+                                            }
+                                    );
                                 }
                             })
                             .setNeutralButton("取消", new DialogInterface.OnClickListener() {
