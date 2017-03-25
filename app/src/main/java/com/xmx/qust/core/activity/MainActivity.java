@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.avos.avoscloud.AVException;
 import com.xmx.qust.R;
 import com.xmx.qust.base.activity.BaseActivity;
+import com.xmx.qust.common.user.LoginEvent;
 import com.xmx.qust.module.user.LoginActivity;
 import com.xmx.qust.common.user.UserData;
 import com.xmx.qust.common.user.callback.LogoutCallback;
@@ -29,6 +30,9 @@ import com.xmx.qust.common.user.UserConstants;
 import com.xmx.qust.common.user.UserManager;
 import com.xmx.qust.core.fragment.WebFragment;
 import com.xmx.qust.utils.ExceptionUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +68,9 @@ public class MainActivity extends BaseActivity
         // 设置标签页底部选项卡
         TabLayout tabLayout = getViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(vp);
+
+        // 注册EventBus
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -78,33 +85,7 @@ public class MainActivity extends BaseActivity
         Menu menu = navigation.getMenu();
         login = menu.findItem(R.id.nav_logout);
         // 使用设备保存的数据自动登录
-        UserManager.getInstance().checkLogin(new AutoLoginCallback() {
-            @Override
-            public void success(final UserData user) {
-                login.setTitle(user.nickname + " 点击注销");
-            }
-
-            @Override
-            public void error(AVException e) {
-                ExceptionUtil.normalException(e, getBaseContext());
-            }
-
-            @Override
-            public void error(int error) {
-                switch (error) {
-                    case UserConstants.CANNOT_CHECK_LOGIN:
-                    case UserConstants.NOT_LOGGED_IN:
-                        showToast("请在侧边栏中选择登录");
-                        break;
-                    case UserConstants.USERNAME_ERROR:
-                        showToast("请在侧边栏中选择登录");
-                        break;
-                    case UserConstants.CHECKSUM_ERROR:
-                        showToast("登录过期，请在侧边栏中重新登录");
-                        break;
-                }
-            }
-        });
+        checkLogin();
     }
 
     /**
@@ -148,32 +129,7 @@ public class MainActivity extends BaseActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == UserConstants.LOGIN_REQUEST_CODE && resultCode == RESULT_OK) {
             // 登录成功
-            UserManager.getInstance().checkLogin(new AutoLoginCallback() {
-                @Override
-                public void success(final UserData user) {
-                    login.setTitle(user.nickname + " 点击注销");
-                }
-
-                @Override
-                public void error(AVException e) {
-                    ExceptionUtil.normalException(e, getBaseContext());
-                }
-
-                @Override
-                public void error(int error) {
-                    switch (error) {
-                        case UserConstants.NOT_LOGGED_IN:
-                            showToast("请在侧边栏中选择登录");
-                            break;
-                        case UserConstants.USERNAME_ERROR:
-                            showToast("请在侧边栏中选择登录");
-                            break;
-                        case UserConstants.CHECKSUM_ERROR:
-                            showToast("登录过期，请在侧边栏中重新登录");
-                            break;
-                    }
-                }
-            });
+            checkLogin();
         }
     }
 
@@ -258,5 +214,39 @@ public class MainActivity extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkLogin() {
+        UserManager.getInstance().checkLogin(new AutoLoginCallback() {
+            @Override
+            public void success(final UserData user) {
+                login.setTitle(user.nickname + " 点击注销");
+            }
+
+            @Override
+            public void error(AVException e) {
+                ExceptionUtil.normalException(e, getBaseContext());
+            }
+
+            @Override
+            public void error(int error) {
+                switch (error) {
+                    case UserConstants.NOT_LOGGED_IN:
+                        showToast("请在侧边栏中选择登录");
+                        break;
+                    case UserConstants.USERNAME_ERROR:
+                        showToast("请在侧边栏中选择登录");
+                        break;
+                    case UserConstants.CHECKSUM_ERROR:
+                        showToast("登录过期，请在侧边栏中重新登录");
+                        break;
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onEventMainThread(LoginEvent event) {
+        checkLogin();
     }
 }
